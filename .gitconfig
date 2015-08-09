@@ -1,0 +1,13 @@
+[push]
+	default = simple
+[user]
+	name = Mao Chuan Li
+	email = mao.chuan.li@gmail.com
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[core]
+	editor = emacs
+[commit]
+	template = /Users/maochuanli/git.template
