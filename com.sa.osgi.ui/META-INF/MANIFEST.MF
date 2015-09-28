@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1443473626786
+Build-Jdk: 1.8.0_60
+Built-By: mao
+Bundle-Activator: com.sa.osgi.ui.Activator
+Bundle-ManifestVersion: 2
+Bundle-Name: OSGi UI Service Bundle
+Bundle-SymbolicName: com.sa.osgi.ui
+Bundle-Vendor: Mao Chuan Li
+Bundle-Version: 1.0.0
+Created-By: Apache Maven Bundle Plugin
+Import-Package: com.sa.osgi.system,org.osgi.framework;version="[1.8,2)",
+ org.osgi.util.tracker;version="[1.5,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.5))"
+Tool: Bnd-2.3.0.201405100607
