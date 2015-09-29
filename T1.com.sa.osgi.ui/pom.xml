@@ -72,7 +72,7 @@
             <configuration>
               <tasks>
 
-	              <copy file="${basedir}/target/${project.artifactId}-${project.version}.jar" todir="../../osgi-saas/bundle/" /> 
+	              <copy file="${basedir}/target/${project.artifactId}-${project.version}.jar" todir="../../saas-on-osgi-main/bundle/" /> 
 
               </tasks>
             </configuration>

@@ -86,7 +86,7 @@
             <configuration>
               <tasks>
 
-	              <copy file="${basedir}/target/com.sa.osgi.proxy.bundle-${project.version}.jar" todir="../osgi-saas/bundle/" /> 
+	              <copy file="${basedir}/target/com.sa.osgi.proxy.bundle-${project.version}.jar" todir="../saas-on-osgi-main/bundle/" /> 
 
               </tasks>
             </configuration>
