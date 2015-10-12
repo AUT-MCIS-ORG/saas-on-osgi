@@ -1,4 +1,4 @@
-package com.sa.osgi.ui;
+package T3.com.sa.osgi.ui;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -13,10 +13,10 @@ implements BundleActivator
     private ServiceRegistration<?> serviceReg;
     
     public void start( final BundleContext ctx ) throws Exception
-    {       
+    {   
         Dictionary properties = new Properties();
-        properties.put("vendor", "SA");
-        serviceReg = ctx.registerService(UIService.class.getName(), new DefaultUIService(), properties);
+        properties.put("vendor", "T3");
+        serviceReg = ctx.registerService(UIService.class.getName(), new T3UIService(), properties);
     }
 
     public void stop( BundleContext ctx ) throws Exception

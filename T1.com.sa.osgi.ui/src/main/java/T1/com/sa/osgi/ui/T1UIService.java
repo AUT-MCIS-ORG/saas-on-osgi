@@ -14,11 +14,11 @@ import com.sa.osgi.system.*;
 public class T1UIService implements UIService{
 
     public String getBackgroundColor() {
-        return "black";
+        return "DarkSalmon";
     }
 
     public String getDateFormat() {
-        return "yyyy-mm-dd";
+        return "yyyy-MM-dd";
     }
     
 }

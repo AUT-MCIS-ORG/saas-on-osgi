@@ -5,81 +5,91 @@
  */
 package com.sa.osgi.proxy;
 
+import com.sa.osgi.system.Credential;
 import com.sa.osgi.system.MaoService;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.felix.bundlerepository.Reason;
-import org.apache.felix.bundlerepository.Repository;
-import org.apache.felix.bundlerepository.RepositoryAdmin;
-import org.apache.felix.bundlerepository.Resolver;
-import org.apache.felix.bundlerepository.Resource;
-import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 
 /**
  *
  * @author mao
  */
-public class MaoServiceImpl implements MaoService{
+public class MaoServiceImpl implements MaoService {
 
-    RepositoryAdmin repoService;
-    
-    MaoServiceImpl(RepositoryAdmin repoService) {
-        this.repoService = repoService;
+//    RepositoryAdmin repoService;
+    BundleContext ctx;
+
+    MaoServiceImpl(BundleContext ctx) {
+        this.ctx = ctx;
     }
 
-    public String getAllBundles() {
-        if(repoService==null) return "OSGi RepositoryAdmin Not Available!";
-        StringBuilder builder = new StringBuilder();
-        
-        Repository[] listRepositories = repoService.listRepositories();
-        for(Repository r:listRepositories){
-            String name = r.getName();
-            String uri = r.getURI();
-            builder.append("Repository Name: "+name + ", URI: "+uri +"<br>");
-            Resource[] resources = r.getResources();
-            for(Resource res:resources){
-                String nameX = res.getSymbolicName() +","+res.getURI() + "," + res.getVersion();
-                builder.append(nameX+"<br>");
-                
+    public List<String> getAllBundles(Credential cred) {
+        List<String> allMyBundles = new ArrayList<String>();
+        if (ctx == null) {
+            return allMyBundles;
+        }
+//        StringBuilder builder = new StringBuilder();
+
+//        Repository[] listRepositories = repoService.listRepositories();
+//        for(Repository r:listRepositories){
+//            String name = r.getName();
+//            String uri = r.getURI();
+//            builder.append("Repository Name: "+name + ", URI: "+uri +"<br>");
+//            Resource[] resources = r.getResources();
+//            for(Resource res:resources){
+//                String nameX = res.getSymbolicName() +","+res.getURI() + "," + res.getVersion();
+//                builder.append(nameX+"<br>");
+//                
+//            }
+//        }
+        Bundle[] bundles = ctx.getBundles();
+        for (Bundle b : bundles) {
+            String name = b.getSymbolicName();
+            String location = b.getLocation();
+//            builder.append("Symbolic Name: " + name + ", Location: " + location + "<br>");
+            if (name.contains(cred.getTennantName())) {
+                allMyBundles.add(name + "," + location);
             }
         }
-        return builder.toString();
+        return allMyBundles;
     }
 
-    void setRepoService(RepositoryAdmin repoService) {
-        this.repoService = repoService;
-    }
-
-    public boolean installBundle(String symbolicName, String version) {
-        try {
-            if(repoService == null) {
-                System.out.println("Repository Admin service N/A");
-                return false;
-            }
-            Resolver resolver = repoService.resolver();
-            final String filter = "(&(symbolicname=" + symbolicName + ")(!(version=" + version
-                + "))(version>=" + version + "))";
-            Resource[] resource = repoService.discoverResources(filter);
-            for(Resource r: resource){
-                resolver.add(r);
-                System.out.println("resource: "+r.getURI());
-            }
-//            
-            if (resolver.resolve())
-            {
-                resolver.deploy(Resolver.START);
-                return true;
-            } else {
-                Reason[] reqs = resolver.getUnsatisfiedRequirements();
-                for (int i = 0; i < reqs.length; i++)
-                {
-                    System.out.println("Unable to resolve: " + reqs[i]);
+    public boolean installBundle(String fileName) {
+        if (ctx == null) {
+            return false;
+        }
+        File f = new File(fileName);
+        if (f.exists()) {
+            try {
+                System.out.println("file path: " + f.getAbsolutePath());
+                Bundle b = this.ctx.installBundle("file:" + f.getAbsolutePath());
+                if (b != null) {
+                    System.out.println("start new installed bundle: " + b.getSymbolicName());
+                    b.start();
+                    return true;
                 }
-            }            
-        } catch (InvalidSyntaxException ex) {
-            Logger.getLogger(MaoServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BundleException ex) {
+                Logger.getLogger(MaoServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
-    
+
+    public boolean installBundle(FileInputStream fin) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        this.ctx.installBundle(null, fin);
+//        return false;
+    }
+
+    void setContext(BundleContext ctx) {
+        this.ctx = ctx;
+    }
+
 }

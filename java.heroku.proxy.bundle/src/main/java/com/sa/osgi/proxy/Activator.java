@@ -10,29 +10,29 @@ import org.apache.felix.bundlerepository.RepositoryAdmin;
 import org.osgi.framework.ServiceRegistration;
 
 public class Activator
-implements BundleActivator
-{
+        implements BundleActivator {
+
     ServiceReference m_reference;
-    RepositoryAdmin repoService= null;
+    RepositoryAdmin repoService = null;
     ServiceRegistration<?> maoServiceReg;
     MaoServiceImpl maoService = new MaoServiceImpl(null);
-    
-    public void start( final BundleContext ctx ) throws Exception
-    {
-        new ServiceTracker(ctx, RepositoryAdmin.class.getName(), null)
-        {
-            public Object addingService( ServiceReference reference )
-            {
-                repoService= (RepositoryAdmin)super.addingService( reference );
-                maoService.setRepoService(repoService);
-                return repoService;
-            }
-        }.open();
-        
-        
+
+    public void start(final BundleContext ctx) throws Exception {
+//        new ServiceTracker(ctx, RepositoryAdmin.class.getName(), null)
+//        {
+//            public Object addingService( ServiceReference reference )
+//            {
+//                repoService= (RepositoryAdmin)super.addingService( reference );
+////                maoService.setRepoService(repoService);
+//                return repoService;
+//            }
+//        }.open();
+
+        maoService.setContext(ctx);
+        System.out.println("Register MaoService.........");
         maoServiceReg = ctx.registerService(MaoService.class.getName(), maoService, null);
     }
-    
+
 //    void registerServlets(HttpService httpService) 
 //    {
 //        try
@@ -45,17 +45,13 @@ implements BundleActivator
 //            e.printStackTrace();
 //        }
 //    }
-
-    public void stop( BundleContext ctx ) throws Exception
-    {
-        if (m_reference != null){
+    public void stop(BundleContext ctx) throws Exception {
+        if (m_reference != null) {
             ctx.ungetService(m_reference);
         }
-        if( maoServiceReg != null){
+        if (maoServiceReg != null) {
             maoServiceReg.unregister();
         }
     }
-    
-    
 
 }

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1443473626786
+Bnd-LastModified: 1444623792744
 Build-Jdk: 1.8.0_60
-Built-By: mao
+Built-By: maochuanli
 Bundle-Activator: com.sa.osgi.ui.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: OSGi UI Service Bundle

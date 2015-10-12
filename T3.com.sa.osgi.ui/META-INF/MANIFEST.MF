@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1444623817358
+Bnd-LastModified: 1444626244035
 Build-Jdk: 1.8.0_60
 Built-By: maochuanli
-Bundle-Activator: T1.com.sa.osgi.ui.Activator
+Bundle-Activator: T3.com.sa.osgi.ui.Activator
 Bundle-ManifestVersion: 2
-Bundle-Name: OSGi UI Service Bundle for T1
-Bundle-SymbolicName: T1.com.sa.osgi.ui
+Bundle-Name: OSGi UI Service Bundle for T3
+Bundle-SymbolicName: T3.com.sa.osgi.ui
 Bundle-Vendor: Mao Chuan Li
 Bundle-Version: 1.0.0
 Created-By: Apache Maven Bundle Plugin
