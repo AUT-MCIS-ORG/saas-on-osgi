@@ -1,2 +1,4 @@
-admin: adminpass,admin,user
-user1: user1pass,user
+admin: pass,admin,user
+T1: pass,user
+T2: pass,user
+T3: pass,user
