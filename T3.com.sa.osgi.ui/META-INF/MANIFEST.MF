@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1444626244035
-Build-Jdk: 1.8.0_60
+Bnd-LastModified: 1445220606865
+Build-Jdk: 1.7.0_45
 Built-By: maochuanli
 Bundle-Activator: T3.com.sa.osgi.ui.Activator
 Bundle-ManifestVersion: 2

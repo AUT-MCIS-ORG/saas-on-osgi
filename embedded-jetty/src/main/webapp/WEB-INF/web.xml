@@ -11,7 +11,7 @@
     </context-param>
 
     <welcome-file-list>
-        <welcome-file>welcome</welcome-file>
+        <welcome-file>index.html</welcome-file>
 
     </welcome-file-list>
 
